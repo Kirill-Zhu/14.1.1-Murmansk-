@@ -63,6 +63,9 @@ public class SlideShowController : MonoBehaviour
     }
     public void OpenSlideShow(int index)
     {
+
+        StopAllCoroutines();
+
         if (_currentList != null)
             _currentList.Clear();
         
@@ -79,7 +82,7 @@ public class SlideShowController : MonoBehaviour
             StopCoroutine(_coroutine);
             _coroutine = null;
         }
-
+      
         _coroutine = StartCoroutine(StartSlideShow());
 
     }
@@ -87,8 +90,11 @@ public class SlideShowController : MonoBehaviour
     {
         
         StartCoroutine(ChangeSprite());
+        if (_currentList.Count < 2)
+            yield break;
+
         yield return new WaitForSeconds(_slideShowSpeed);
-        if(_currentList.Count >1)
+        if(_currentList.Count >0)
             _coroutine = StartCoroutine(StartSlideShow());
         
     }
@@ -106,11 +112,11 @@ public class SlideShowController : MonoBehaviour
 
             }
         }
-
+        _currentSpirteIndex++;
         try
         {         
             _slideShowImage.sprite = _currentList[_currentSpirteIndex];
-            _currentSpirteIndex++;
+           
             _slideShowImage.SetNativeSize();
         }
         catch 
@@ -119,7 +125,7 @@ public class SlideShowController : MonoBehaviour
             _slideShowImage.sprite = _currentList[_currentSpirteIndex];
             _slideShowImage.SetNativeSize();
         }
-       
+        Debug.Log("Displa 2 current image index : "+  _currentSpirteIndex);
         
         if (_slideShowImage != null)
         {

@@ -16,7 +16,11 @@ public class JsonSaveSystem : MonoBehaviour
         JsonSaveData data = new JsonSaveData();
         data.Name = _name.text;
         data.Text = _text.text;
-        string fileName = Application.dataPath + String.Format("/Пожелания/Pozhelaniya ot {0}", _name.text);
+
+        if (!Directory.Exists(Application.dataPath+ "/Pozhelaniya"))
+            Directory.CreateDirectory(Application.dataPath + "/Pozhelaniya");
+
+        string fileName = Application.dataPath + String.Format("/Pozhelaniya/ {0}", _name.text);
         string json = JsonUtility.ToJson(data,true);
 
         CheckName(ref fileName);

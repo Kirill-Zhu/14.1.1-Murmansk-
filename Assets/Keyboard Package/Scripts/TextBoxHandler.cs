@@ -9,6 +9,10 @@ public class TextBoxHandler : MonoBehaviour
     private void Awake()
     {
         _textMesh = GetComponent<TextMeshProUGUI>();
+        _textMesh.text = _onEnableText;
+    }
+    private void Start() {
+        _textMesh.text = _onEnableText;
     }
     public void SetThisTextBoxAsActive()
     {
